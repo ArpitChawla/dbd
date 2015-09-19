@@ -1,4 +1,4 @@
-lambda's Kodi Add-ons
+dbd Kodi Add-on
 ===========
 
-Download and install add-ons from lambda repository.
+The dbd addon is a fork of the genesis addon by lambda.
