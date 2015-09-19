@@ -94,7 +94,7 @@ class source:
                     url = urlparse.urljoin(self.base_link, url)
                     url = url.encode('utf-8')
 
-                    sources.append({'source': host, 'quality': quality, 'provider': 'Movie25', 'url': url})
+                    sources.append({'source': host, 'quality': quality, 'provider': 'hindimoviesbollyv4u', 'url': url})
                 except:
                     pass
 
