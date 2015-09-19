@@ -41,7 +41,7 @@ class movies:
         self.cinemalytics_link = 'http://api.cinemalytics.com'
         self.trakt_link = 'http://api-v2launch.trakt.tv'
         self.imdb_link = 'http://www.imdb.com'
-        self.tmdb_key = base64.urlsafe_b64decode('NTc5ODNlMzFmYjQzNWRmNGRmNzdhZmI4NTQ3NDBlYTk=')
+       
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
@@ -52,24 +52,24 @@ class movies:
         self.imdb_user = control.setting('imdb_user').replace('ur', '')
         self.info_lang = control.setting('infoLang') or 'en'
 
-        self.tmdb_info_link = 'http://api.themoviedb.org/3/movie/%s?api_key=%s&language=%s&append_to_response=credits,releases' % ('%s', self.tmdb_key, self.info_lang)
+        self.cinemalytics_info_link = 'http://api.themoviedb.org/3/movie/%s?api_key=%s&language=%s&append_to_response=credits,releases' % ('%s', self.cinemalytics_key, self.info_lang)
         self.imdb_by_query = 'http://www.omdbapi.com/?t=%s&y=%s'
-        self.tmdb_image = 'http://image.tmdb.org/t/p/original'
-        self.tmdb_poster = 'http://image.tmdb.org/t/p/w500'
+        self.cinemalytics_image = 'http://image.cinemalytics.org/t/p/original'
+        self.cinemalytics_poster = 'http://image.cinemalytics.org/t/p/w500'
 
-        self.persons_link = 'http://api.themoviedb.org/3/search/person?api_key=%s&query=%s&include_adult=false&page=1' % (self.tmdb_key, '%s')
-        self.personlist_link = 'http://api.themoviedb.org/3/person/popular?api_key=%s&page=%s' % (self.tmdb_key, '%s')
-        self.genres_link = 'http://api.themoviedb.org/3/genre/movie/list?api_key=%s&language=%s' % (self.tmdb_key, self.info_lang)
-        self.certifications_link = 'http://api.themoviedb.org/3/certification/movie/list?api_key=%s' % self.tmdb_key
+        self.persons_link = 'http://api.themoviedb.org/3/search/person?api_key=%s&query=%s&include_adult=false&page=1' % (self.cinemalytics_key, '%s')
+        self.personlist_link = 'http://api.themoviedb.org/3/person/popular?api_key=%s&page=%s' % (self.cinemalytics_key, '%s')
+        self.genres_link = 'http://api.themoviedb.org/3/genre/movie/list?api_key=%s&language=%s' % (self.cinemalytics_key, self.info_lang)
+        self.certifications_link = 'http://api.themoviedb.org/3/certification/movie/list?api_key=%s' % self.cinemalytics_key
 
-        self.search_link = 'http://api.themoviedb.org/3/search/movie?api_key=%s&query=%s'
-        self.popular_link = 'http://api.themoviedb.org/3/movie/popular?api_key=%s&page=1'
+        self.search_link = 'http://api.cinemalytics.com/v1/movie/title/Kabhi%20Khushi%20Kabhie%20Gham/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4'
+        self.popular_link = 'http://api.cinemalytics.com/v1/analytics/TopMovies/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4&page=1'
         self.views_link = 'http://api.themoviedb.org/3/movie/top_rated?api_key=%s&page=1'
         self.featured_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&primary_release_date.gte=%s&primary_release_date.lte=%s&page=1' % ('%s', self.year_date, self.month2_date)
         self.person_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&with_people=%s&primary_release_date.lte=%s&sort_by=primary_release_date.desc&page=1' % ('%s', '%s', self.today_date)
         self.genre_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&with_genres=%s&primary_release_date.gte=%s&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.year_date, self.today_date)
         self.certification_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&certification=%s&certification_country=US&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.today_date)
-        self.year_link = 'http://api.cinemalytics.com/v1/movie/year/2001/?auth_token=7B368FAC3C52028CC95CDA798B0255B2   ('%s', '%s', self.today_date)
+        self.year_link = 'http://api.cinemalytics.com/v1/movie/year/2001/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4   ('%s', '%s', self.today_date)
         self.theaters_link = 'http://api.themoviedb.org/3/movie/now_playing?api_key=%s&page=1'
         self.boxoffice_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&sort=boxoffice_gross_us,desc&count=20&start=1'
         self.oscars_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&groups=oscar_best_picture_winners&sort=year,desc&count=20&start=1'
@@ -99,8 +99,8 @@ class movies:
             except: pass
 
 
-            if u in self.tmdb_link:
-                self.list = cache.get(self.tmdb_list, 24, url)
+            if u in self.cinemalytics_link:
+                self.list = cache.get(self.cinemalytics_list, 24, url)
                 self.worker()
 
 
@@ -158,7 +158,7 @@ class movies:
                 except: pass
                 if not 'duration' in i: i['duration'] = '0'
                 if not 'imdb' in i: i['imdb'] = '0'
-                if not 'tmdb' in i: i['tmdb'] = '0'
+                if not 'cinemalytics' in i: i['cinemalytics'] = '0'
                 if not 'tvdb' in i: i['tvdb'] = '0'
                 if not 'tvrage' in i: i['tvrage'] = '0'
                 if not 'poster' in i: i['poster'] = '0'
@@ -184,7 +184,7 @@ class movies:
             if (self.query == None or self.query == ''): return
 
             url = self.search_link % ('%s', urllib.quote_plus(self.query))
-            self.list = cache.get(self.tmdb_list, 0, url)
+            self.list = cache.get(self.cinemalytics_list, 0, url)
 
             self.worker()
             self.movieDirectory(self.list)
@@ -205,7 +205,7 @@ class movies:
             if (self.query == None or self.query == ''): return
 
             url = self.persons_link % urllib.quote_plus(self.query)
-            self.list = cache.get(self.tmdb_person_list, 0, url)
+            self.list = cache.get(self.cinemalytics_person_list, 0, url)
 
             for i in range(0, len(self.list)): self.list[i].update({'action': 'movies'})
             self.addDirectory(self.list)
@@ -218,7 +218,7 @@ class movies:
         try:
             url = self.genres_link
             url = re.sub('language=(fi|hr|no)', '', url)
-            self.list = cache.get(self.tmdb_genre_list, 24, url)
+            self.list = cache.get(self.cinemalytics_genre_list, 24, url)
 
             for i in range(0, len(self.list)): self.list[i].update({'image': 'movieGenres.jpg', 'action': 'movies'})
             self.addDirectory(self.list)
@@ -230,7 +230,7 @@ class movies:
     def certifications(self):
         try:
             url = self.certifications_link
-            self.list = cache.get(self.tmdb_certification_list, 24, url)
+            self.list = cache.get(self.cinemalytics_certification_list, 24, url)
 
             for i in range(0, len(self.list)): self.list[i].update({'image': 'movieCertificates.jpg', 'action': 'movies'})
             self.addDirectory(self.list)
@@ -253,7 +253,7 @@ class movies:
         for i in range(1, 5):
             try:
                 self.list = []
-                personlists += cache.get(self.tmdb_person_list, 24, self.personlist_link % str(i))
+                personlists += cache.get(self.cinemalytics_person_list, 24, self.personlist_link % str(i))
             except:
                 pass
 
@@ -283,9 +283,9 @@ class movies:
         return self.list
 
 
-    def tmdb_list(self, url):
+    def cinemalytics_list(self, url):
         try:
-            result = client.request(url % self.tmdb_key)
+            result = client.request(url % self.cinemalytics_key)
             result = json.loads(result)
             items = result['results']
         except:
@@ -315,18 +315,18 @@ class movies:
                 try: name = name.encode('utf-8')
                 except: pass
 
-                tmdb = item['id']
-                tmdb = re.sub('[^0-9]', '', str(tmdb))
-                tmdb = tmdb.encode('utf-8')
+                cinemalytics = item['id']
+                cinemalytics = re.sub('[^0-9]', '', str(cinemalytics))
+                cinemalytics = cinemalytics.encode('utf-8')
 
                 poster = item['poster_path']
                 if poster == '' or poster == None: raise Exception()
-                else: poster = '%s%s' % (self.tmdb_poster, poster)
+                else: poster = '%s%s' % (self.cinemalytics_poster, poster)
                 poster = poster.encode('utf-8')
 
                 fanart = item['backdrop_path']
                 if fanart == '' or fanart == None: fanart = '0'
-                if not fanart == '0': fanart = '%s%s' % (self.tmdb_image, fanart)
+                if not fanart == '0': fanart = '%s%s' % (self.cinemalytics_image, fanart)
                 fanart = fanart.encode('utf-8')
 
                 premiered = item['release_date']
@@ -353,14 +353,14 @@ class movies:
                 try: tagline = tagline.encode('utf-8')
                 except: pass
 
-                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': premiered, 'studio': '0', 'genre': '0', 'duration': '0', 'rating': rating, 'votes': votes, 'mpaa': '0', 'director': '0', 'writer': '0', 'cast': '0', 'plot': plot, 'tagline': tagline, 'name': name, 'code': '0', 'imdb': '0', 'tmdb': tmdb, 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': '0', 'fanart': fanart, 'next': next})
+                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': premiered, 'studio': '0', 'genre': '0', 'duration': '0', 'rating': rating, 'votes': votes, 'mpaa': '0', 'director': '0', 'writer': '0', 'cast': '0', 'plot': plot, 'tagline': tagline, 'name': name, 'code': '0', 'imdb': '0', 'cinemalytics': cinemalytics, 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': '0', 'fanart': fanart, 'next': next})
             except:
                 pass
 
         return self.list
 
 
-    def tmdb_person_list(self, url):
+    def cinemalytics_person_list(self, url):
         try:
             result = client.request(url)
             result = json.loads(result)
@@ -376,7 +376,7 @@ class movies:
                 url = self.person_link % ('%s', item['id'])
                 url = url.encode('utf-8')
 
-                image = '%s%s' % (self.tmdb_image, item['profile_path'])
+                image = '%s%s' % (self.cinemalytics_image, item['profile_path'])
                 image = image.encode('utf-8')
 
                 self.list.append({'name': name, 'url': url, 'image': image})
@@ -386,7 +386,7 @@ class movies:
         return self.list
 
 
-    def tmdb_genre_list(self, url):
+    def cinemalytics_genre_list(self, url):
         try:
             result = client.request(url)
             result = json.loads(result)
@@ -409,7 +409,7 @@ class movies:
         return self.list
 
 
-    def tmdb_certification_list(self, url):
+    def cinemalytics_certification_list(self, url):
         try:
             result = client.request(url)
             result = json.loads(result)
@@ -478,10 +478,10 @@ class movies:
                 try: name = name.encode('utf-8')
                 except: pass
 
-                tmdb = item['ids']['tmdb']
-                if tmdb == None or tmdb == '': tmdb = '0'
-                tmdb = re.sub('[^0-9]', '', str(tmdb))
-                tmdb = tmdb.encode('utf-8')
+                cinemalytics = item['ids']['cinemalytics']
+                if cinemalytics == None or cinemalytics == '': cinemalytics = '0'
+                cinemalytics = re.sub('[^0-9]', '', str(cinemalytics))
+                cinemalytics = cinemalytics.encode('utf-8')
 
                 imdb = item['ids']['imdb']
                 if imdb == None or imdb == '': raise Exception()
@@ -554,7 +554,7 @@ class movies:
                 try: tagline = tagline.encode('utf-8')
                 except: pass
 
-                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': premiered, 'studio': '0', 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': '0', 'writer': '0', 'cast': '0', 'plot': plot, 'tagline': tagline, 'name': name, 'code': imdb, 'imdb': imdb, 'tmdb': tmdb, 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': banner, 'fanart': fanart, 'next': next})
+                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': premiered, 'studio': '0', 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': '0', 'writer': '0', 'cast': '0', 'plot': plot, 'tagline': tagline, 'name': name, 'code': imdb, 'imdb': imdb, 'cinemalytics': cinemalytics, 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': banner, 'fanart': fanart, 'next': next})
             except:
                 pass
 
@@ -728,7 +728,7 @@ class movies:
                 try: tagline = tagline.encode('utf-8')
                 except: pass
 
-                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': '0', 'studio': '0', 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': '0', 'cast': cast, 'plot': plot, 'tagline': tagline, 'name': name, 'code': imdb, 'imdb': imdb, 'tmdb': '0', 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': '0', 'fanart': '0', 'next': next})
+                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': '0', 'studio': '0', 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': '0', 'cast': cast, 'plot': plot, 'tagline': tagline, 'name': name, 'code': imdb, 'imdb': imdb, 'cinemalytics': '0', 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': '0', 'fanart': '0', 'next': next})
             except:
                 pass
 
@@ -873,7 +873,7 @@ class movies:
                 try: tagline = tagline.encode('utf-8')
                 except: pass
 
-                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': '0', 'studio': '0', 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'tagline': tagline, 'name': name, 'code': imdb, 'imdb': imdb, 'tmdb': '0', 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': '0', 'fanart': '0'})
+                self.list.append({'title': title, 'originaltitle': title, 'year': year, 'premiered': '0', 'studio': '0', 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'tagline': tagline, 'name': name, 'code': imdb, 'imdb': imdb, 'cinemalytics': '0', 'tvdb': '0', 'tvrage': '0', 'poster': poster, 'banner': '0', 'fanart': '0'})
             except:
                 pass
 
@@ -926,21 +926,21 @@ class movies:
 
             try: imdb = self.list[i]['imdb']
             except: imdb = '0'
-            try: tmdb = self.list[i]['tmdb']
-            except: tmdb = '0'
+            try: cinemalytics = self.list[i]['cinemalytics']
+            except: cinemalytics = '0'
 
-            if not tmdb == '0': url = self.tmdb_info_link % tmdb
-            elif not imdb == '0': url = self.tmdb_info_link % imdb
+            if not cinemalytics == '0': url = self.cinemalytics_info_link % cinemalytics
+            elif not imdb == '0': url = self.cinemalytics_info_link % imdb
             else: raise Exception()
 
             item = client.request(url, timeout='10')
             item = json.loads(item)
 
-            tmdb = item['id']
-            if tmdb == '' or tmdb == None: tmdb = '0'
-            tmdb = re.sub('[^0-9]', '', str(tmdb))
-            tmdb = tmdb.encode('utf-8')
-            if not tmdb == '0': self.list[i].update({'tmdb': tmdb})
+            cinemalytics = item['id']
+            if cinemalytics == '' or cinemalytics == None: cinemalytics = '0'
+            cinemalytics = re.sub('[^0-9]', '', str(cinemalytics))
+            cinemalytics = cinemalytics.encode('utf-8')
+            if not cinemalytics == '0': self.list[i].update({'cinemalytics': cinemalytics})
 
             imdb = item['imdb_id']
             if imdb == '' or imdb == None: imdb = '0'
@@ -950,13 +950,13 @@ class movies:
 
             poster = item['poster_path']
             if poster == '' or poster == None: poster = '0'
-            if not poster == '0': poster = '%s%s' % (self.tmdb_poster, poster)
+            if not poster == '0': poster = '%s%s' % (self.cinemalytics_poster, poster)
             poster = poster.encode('utf-8')
             if not poster == '0' and (self.list[i]['poster'] == '0' or 'imdb.com' in self.list[i]['poster']): self.list[i].update({'poster': poster})
 
             fanart = item['backdrop_path']
             if fanart == '' or fanart == None: fanart = '0'
-            if not fanart == '0': fanart = '%s%s' % (self.tmdb_image, fanart)
+            if not fanart == '0': fanart = '%s%s' % (self.cinemalytics_image, fanart)
             fanart = fanart.encode('utf-8')
             if not fanart == '0' and self.list[i]['fanart'] == '0': self.list[i].update({'fanart': fanart})
 
@@ -1043,7 +1043,7 @@ class movies:
             except: pass
             if not tagline == '0': self.list[i].update({'tagline': tagline})
 
-            self.meta.append({'imdb': imdb, 'tmdb': tmdb, 'tvdb': '0', 'tvrage': '0', 'lang': self.info_lang, 'item': {'code': imdb, 'imdb': imdb, 'tmdb': tmdb, 'poster': poster, 'fanart': fanart, 'premiered': premiered, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'tagline': tagline}})
+            self.meta.append({'imdb': imdb, 'cinemalytics': cinemalytics, 'tvdb': '0', 'tvrage': '0', 'lang': self.info_lang, 'item': {'code': imdb, 'imdb': imdb, 'cinemalytics': cinemalytics, 'poster': poster, 'fanart': fanart, 'premiered': premiered, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'tagline': tagline}})
         except:
             pass
 
@@ -1089,7 +1089,7 @@ class movies:
                 label = i['name']
                 sysname = urllib.quote_plus(label)
                 systitle = urllib.quote_plus(i['title'])
-                imdb, tmdb, year = i['imdb'], i['tmdb'], i['year']
+                imdb, cinemalytics, year = i['imdb'], i['cinemalytics'], i['year']
 
 
                 poster, banner, fanart = i['poster'], i['banner'], i['fanart']
@@ -1106,11 +1106,11 @@ class movies:
                 sysmeta = urllib.quote_plus(json.dumps(meta))
 
 
-                url = '%s?action=play&name=%s&title=%s&year=%s&imdb=%s&tmdb=%s&t=%s' % (sysaddon, sysname, systitle, year, imdb, tmdb, self.systime)
+                url = '%s?action=play&name=%s&title=%s&year=%s&imdb=%s&cinemalytics=%s&t=%s' % (sysaddon, sysname, systitle, year, imdb, cinemalytics, self.systime)
                 sysurl = urllib.quote_plus(url)
 
                 if isFolder == True:
-                    url = '%s?action=sources&name=%s&title=%s&year=%s&imdb=%s&tmdb=%s&meta=%s' % (sysaddon, sysname, systitle, year, imdb, tmdb, sysmeta)
+                    url = '%s?action=sources&name=%s&title=%s&year=%s&imdb=%s&cinemalytics=%s&meta=%s' % (sysaddon, sysname, systitle, year, imdb, cinemalytics, sysmeta)
 
 
                 try:
@@ -1149,7 +1149,7 @@ class movies:
                     if not imdb in favitems: cm.append((control.lang(30209).encode('utf-8'), 'RunPlugin(%s?action=addFavourite&meta=%s&content=movies)' % (sysaddon, sysmeta)))
                     else: cm.append((control.lang(30210).encode('utf-8'), 'RunPlugin(%s?action=deleteFavourite&meta=%s&content=movies)' % (sysaddon, sysmeta)))
 
-                cm.append((control.lang(30211).encode('utf-8'), 'RunPlugin(%s?action=movieToLibrary&name=%s&title=%s&year=%s&imdb=%s&tmdb=%s)' % (sysaddon, sysname, systitle, year, imdb, tmdb)))
+                cm.append((control.lang(30211).encode('utf-8'), 'RunPlugin(%s?action=movieToLibrary&name=%s&title=%s&year=%s&imdb=%s&cinemalytics=%s)' % (sysaddon, sysname, systitle, year, imdb, cinemalytics)))
 
                 cm.append((control.lang(30212).encode('utf-8'), 'RunPlugin(%s?action=addView&content=movies)' % sysaddon))
 
@@ -1224,5 +1224,4 @@ class movies:
                 pass
 
         control.directory(int(sys.argv[1]), cacheToDisc=True)
-
 
