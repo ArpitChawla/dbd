@@ -63,13 +63,13 @@ class movies:
         self.certifications_link = 'http://api.themoviedb.org/3/certification/movie/list?api_key=%s' % self.cinemalytics_key
 
         self.search_link = 'http://api.cinemalytics.com/v1/movie/title/Kabhi%20Khushi%20Kabhie%20Gham/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4'
-        self.popular_link = 'http://api.cinemalytics.com/v1/analytics/TopMovies/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4&page=1'
+        self.popular_link = 'http://api.cinemalytics.com/v1/analytics/TopMovies/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4'
         self.views_link = 'http://api.themoviedb.org/3/movie/top_rated?api_key=%s&page=1'
         self.featured_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&primary_release_date.gte=%s&primary_release_date.lte=%s&page=1' % ('%s', self.year_date, self.month2_date)
         self.person_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&with_people=%s&primary_release_date.lte=%s&sort_by=primary_release_date.desc&page=1' % ('%s', '%s', self.today_date)
         self.genre_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&with_genres=%s&primary_release_date.gte=%s&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.year_date, self.today_date)
         self.certification_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&certification=%s&certification_country=US&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.today_date)
-        self.year_link = 'http://api.cinemalytics.com/v1/movie/year/2001/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4   ('%s', '%s', self.today_date)
+        self.year_link = 'http://api.cinemalytics.com/v1/movie/year/2001/?auth_token=651807C47FBA2DB4CFC242EADAAC10C4'   
         self.theaters_link = 'http://api.themoviedb.org/3/movie/now_playing?api_key=%s&page=1'
         self.boxoffice_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&sort=boxoffice_gross_us,desc&count=20&start=1'
         self.oscars_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&groups=oscar_best_picture_winners&sort=year,desc&count=20&start=1'
