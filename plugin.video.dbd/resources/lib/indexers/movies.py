@@ -38,7 +38,7 @@ class movies:
     def __init__(self):
         self.list = []
 
-        self.tmdb_link = 'http://api.themoviedb.org'
+        self.cinemalytics_link = 'http://api.cinemalytics.com'
         self.trakt_link = 'http://api-v2launch.trakt.tv'
         self.imdb_link = 'http://www.imdb.com'
         self.tmdb_key = base64.urlsafe_b64decode('NTc5ODNlMzFmYjQzNWRmNGRmNzdhZmI4NTQ3NDBlYTk=')
@@ -69,7 +69,7 @@ class movies:
         self.person_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&with_people=%s&primary_release_date.lte=%s&sort_by=primary_release_date.desc&page=1' % ('%s', '%s', self.today_date)
         self.genre_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&with_genres=%s&primary_release_date.gte=%s&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.year_date, self.today_date)
         self.certification_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&certification=%s&certification_country=US&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.today_date)
-        self.year_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&year=%s&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.today_date)
+        self.year_link = 'http://api.cinemalytics.com/v1/movie/year/2001/?auth_token=7B368FAC3C52028CC95CDA798B0255B2   ('%s', '%s', self.today_date)
         self.theaters_link = 'http://api.themoviedb.org/3/movie/now_playing?api_key=%s&page=1'
         self.boxoffice_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&sort=boxoffice_gross_us,desc&count=20&start=1'
         self.oscars_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&groups=oscar_best_picture_winners&sort=year,desc&count=20&start=1'
