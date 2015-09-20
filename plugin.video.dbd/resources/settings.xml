@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<category label="30800">
-		<setting id="appearance" type="select" label="30801" values="-|4orbs|Clean|Embossed|GOne|Metro" default="GOne" />
+		<setting id="appearance" type="select" label="30801" values="-|4orbs|Clean|Embossed|GOne|Metro|Bolly" default="GOne" />
 		<setting id="fanart" type="bool" label="30802" default="true" />
 		<setting id="infoLang" type="select" label="30803" values="cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" default="en" />
 		<setting type="sep" />
@@ -61,6 +61,8 @@
 		<setting id="einthusan" type="bool" label="Einthusan (India)" default="true" />
 		<setting id="easynews" type="bool" label="Easynews" default="false" />
 		<setting id="furk" type="bool" label="Furk" default="false" />
+		<setting id="hindimoviesbollyv4u_mv" type="bool" label="Hindimoviesbollyv4u_mv" default="false" />																																																			easynews" type="bool" label="Easynews" default="false" />
+		<setting id="join4films_mv" type="bool" label="Join4films_mv" default="false" />	
 	</category>
 	<category label="30861">
 		<setting id="alluc_tv" type="bool" label="Alluc" default="true" />
