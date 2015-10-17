@@ -42,3 +42,6 @@ class movies:
         self.info_lang = control.setting('infoLang') or 'en'
         
         self.persons_link = 'http://api.cinemalytics.com/v1/person/name/Nawaz/?%s&query=%s'
+        
+         self.popular_link = 'http://api.cinemalytics.com/v1/analytics/TopMovies/?auth_token=%s&page=1'
+         self.theaters_link = 'http://api.cinemalytics.com/v1/movie/releasedthisweek?auth_token=%s&page=1'
